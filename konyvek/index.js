@@ -9,7 +9,13 @@ const {
     getKonyvById,
     getKonyvekByAr,
     getKonyvDarab,
-    getKonyvByCim
+    getKonyvByCim,
+    getKonyvBySzerzo,
+    getKonyvekByCategory,
+    getKonyvekByArFelett,
+    getKonyvekByOldal,
+    getKonyvekByEv,
+    getKonyvekByMegtekintes
 } = require("./services/konyvekservices")
 
 // ez kell ahhoz, hogy request body-t tudjak küldeni
@@ -34,9 +40,19 @@ app.get("/konyvek/:id",getKonyvById);
 
 app.get("/konyvek/ar/:ar",getKonyvekByAr);
 
-app.get("/konyvek/cim/:cim", getKonyvByCim)
+app.get("/konyvek/cim/:cim", getKonyvByCim);
 
+app.get("/konyvek/szerzo/:szerzo", getKonyvBySzerzo);
 
+app.get("/konyvek/kategoria/:kategoria", getKonyvekByCategory);
+
+app.get("/konyvek/arfelett/:arfelett", getKonyvekByArFelett);
+
+app.get("/konyvek/oldal/:oldal", getKonyvekByOldal);
+
+app.get("/konyvek/ev/:ev", getKonyvekByEv);
+
+app.get("/konyvek/nepszeru/:nepszeru", getKonyvekByMegtekintes);
 
 // ez indítja az appot
 app.listen(PORT, () => {

@@ -47,11 +47,73 @@ const getKonyvByCim = (req, res) => {
     res.json(konyv);
 }
 
+// 3.feladat: Készíts egy GET /konyvek/szerzo/:szerzo végpontot, amely visszaadja az adott szerző összes könyvét.
+const getKonyvBySzerzo = (req, res) => {
+    const szerzo = req.params.szerzo.toLowerCase().replaceAll(' ', '');
+    const konyv = konyvek.filter(konyv => {
+        let kisbetus = konyv.author.toLowerCase().replaceAll(' ', '');
+        if (kisbetus == szerzo){
+            return konyv
+        }
+    });
+    res.json(konyv);
+}
+
+// 4.feladat: Készíts egy GET /konyvek/kategoria/:kategoria végpontot, amely csak a megadott kategóriájú könyveket adja vissza.
+const getKonyvekByCategory = (req, res) => {
+    const kategoria = req.params.kategoria.toLowerCase().replaceAll(' ', '');
+    // a filter egy új listát csinál és a return tölti meg
+    const konyv= konyvek.filter(konyv => {
+        let kisbetus = konyv.category.toLowerCase().replaceAll(' ', '');
+        if (kisbetus == kategoria){
+            return konyv
+        }
+    });
+    res.json(konyv);
+}
+
+// 5.feladat: Készíts egy GET /konyvek/ar-felett/:ar végpontot, amely azokat a könyveket adja vissza, amelyek ára nagyobb, mint a paraméterben megadott ár.
+const getKonyvekByArFelett = (req, res) => {
+    let paramArFelett = Number(req.params.arfelett);
+    let konyvekByArFelett = konyvek.filter(konyv => konyv.price > paramArFelett);
+    res.json(konyvekByArFelett);
+}
+
+// 6.feladat: Készíts egy GET /konyvek/oldal/:oldal végpontot, amely azokat a könyveket adja vissza, amelyek oldalszáma kisebb a megadott értéknél.
+const getKonyvekByOldal = (req, res) => {
+    let paramOldal = Number(req.params.oldal);
+    let konyvekByOldal = konyvek.filter(konyv => konyv.pages < paramOldal);
+    res.json(konyvekByOldal);
+}
+
+// 7.feladat: Készíts egy GET /konyvek/ev/:ev végpontot, amely az adott évnél később megjelent könyveket adja vissza.
+const getKonyvekByEv = (req, res) => {
+    let paramEv = Number(req.params.ev);
+    let konyvekByEv = konyvek.filter(konyv => konyv.year > paramEv);
+    res.json(konyvekByEv);
+}
+
+// 8.feladat: Készíts egy GET /konyvek/nepszeru/:views végpontot, amely csak azokat a könyveket adja vissza, amelyek megtekintéseinek száma nagyobb a megadott értéknél.
+const getKonyvekByMegtekintes = (req, res) => {
+    let paramMegtekintes = Number(req.params.nepszeru);
+    let konyvekByMegtekintes = konyvek.filter(konyv => konyv.views > paramMegtekintes);
+    res.json(konyvekByMegtekintes);
+}
+
+// 9.feladat: Készíts egy GET /konyvek/legolcsobb végpontot, amely csak a legolcsóbb könyvet adja vissza.
+
+
 // exportálás!!!
 module.exports = {
     getKonyvek,
     getKonyvById,
     getKonyvekByAr,
     getKonyvDarab,
-    getKonyvByCim
+    getKonyvByCim,
+    getKonyvBySzerzo,
+    getKonyvekByCategory,
+    getKonyvekByArFelett,
+    getKonyvekByOldal,
+    getKonyvekByEv,
+    getKonyvekByMegtekintes
 }
